@@ -27,8 +27,6 @@ const COMENTARIO = {
 
 async function gerarImagemComentario(comentario) {
   try {
-    console.log("Iniciando geração da imagem...");
-
     const canvas = createCanvas(TELA.largura, TELA.altura);
     const ctx = canvas.getContext("2d");
 
@@ -131,7 +129,7 @@ async function gerarImagemComentario(comentario) {
     const retanguloY = (TELA.altura - alturaRetangulo) / 2;
 
     // Carregar fundo
-    const fundo = await loadImage("src/background2.jpg");
+    const fundo = await loadImage("src/background.jpg");
     ctx.drawImage(fundo, 0, 0, TELA.largura, TELA.altura);
 
     // Retângulo central

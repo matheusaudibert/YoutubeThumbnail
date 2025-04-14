@@ -26,10 +26,8 @@ async function verificarEAtualizarToken() {
     const tokenInfo = oauth2Client.credentials;
 
     if (!tokenInfo.access_token || tokenInfo.expiry_date <= Date.now()) {
-      console.log("Token expirado ou não disponível. Renovando token...");
       const { credentials } = await oauth2Client.refreshAccessToken();
       oauth2Client.setCredentials(credentials);
-      console.log("Token renovado com sucesso!");
     }
   } catch (error) {
     console.error("Erro ao renovar o token:", error.message);
@@ -39,7 +37,6 @@ async function verificarEAtualizarToken() {
 
 async function setThumbnail(comentarioModerado) {
   try {
-    // Verificar e atualizar o token antes de prosseguir
     await verificarEAtualizarToken();
 
     if (!fs.existsSync(CAMINHO_THUMBNAIL)) {
@@ -67,7 +64,7 @@ async function setThumbnail(comentarioModerado) {
         JSON.stringify(error.response.data, null, 2)
       );
     }
-    throw error; // Propagar o erro para tratamento adequado
+    throw error;
   }
 }
 

@@ -37,7 +37,7 @@ async function obterUltimoComentario() {
           part: "snippet",
           videoId: process.env.YOUTUBE_VIDEO_ID,
           key: process.env.YOUTUBE_API_KEY,
-          maxResults: 1, // Alterado para garantir que apenas o último comentário seja retornado
+          maxResults: 1,
           order: "time",
         },
       }
@@ -58,8 +58,8 @@ async function obterUltimoComentario() {
     }
     return null;
   } catch (erro) {
-    console.error("Erro ao buscar comentários:", erro.message);
-    throw erro; // Alterado para lançar o erro e permitir tratamento no chamador
+    console.error("❌ Erro ao buscar comentários:", erro.message);
+    throw erro;
   }
 }
 

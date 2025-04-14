@@ -8,10 +8,10 @@ async function pegarComentario() {
     console.log("Buscando o último comentário...");
     const comentario = await obterUltimoComentario();
     if (comentario) {
-      console.log("Comentário obtido:", comentario.textoComentario);
+      console.log("✅ Comentário encontrado:", comentario.textoComentario);
       return comentario;
     } else {
-      console.log("Nenhum comentário encontrado.");
+      console.log("❌ Nenhum comentário encontrado.");
       return null;
     }
   } catch (error) {
@@ -22,23 +22,24 @@ async function pegarComentario() {
 
 async function moderarComentario(comentario) {
   try {
-    console.log("Moderando comentário...");
     const comentarioProcessado = await processarComentario(comentario);
-    console.log("Comentário moderado com sucesso.");
+    console.log(
+      "✅ Comentário censurado com sucesso:",
+      comentarioProcessado.textoComentario
+    );
     return comentarioProcessado;
   } catch (error) {
-    console.error("Erro ao moderar o comentário:", error.message);
+    console.error("❌ Erro ao moderar o comentário:", error.message);
     throw error;
   }
 }
 
 async function gerarThumbnail(comentarioModerado) {
   try {
-    console.log("Definindo a thumbnail...");
     await setThumbnail(comentarioModerado);
-    console.log("Thumbnail definida com sucesso.");
+    console.log("✅ Thumbnail definida com sucesso.");
   } catch (error) {
-    console.error("Erro ao definir a thumbnail:", error.message);
+    console.error("❌ Erro ao definir a thumbnail:", error.message);
     throw error;
   }
 }
@@ -49,32 +50,21 @@ async function main() {
 
     if (comentario) {
       const comentarioModerado = await moderarComentario(comentario);
-
-      console.log("Gerando thumbnail...");
-      await gerarThumbnail(comentarioModerado); // Passar o comentário moderado
+      await gerarThumbnail(comentarioModerado);
     }
   } catch (error) {
-    console.error("Erro no fluxo principal:", error.message);
+    console.error("❌ Erro no fluxo principal:", error.message);
   }
 }
 
-// Função que executa o código periodicamente
 function iniciarTimerExecucao() {
   const INTERVALO_MINUTOS = 8;
   const INTERVALO_MS = INTERVALO_MINUTOS * 60 * 1000;
 
-  console.log(
-    `Iniciando timer. O código será executado a cada ${INTERVALO_MINUTOS} minutos.`
-  );
-
-  // Executa imediatamente na primeira vez
   main();
 
-  // Configura o timer para execuções subsequentes
   setInterval(() => {
-    console.log(
-      `\n[${new Date().toLocaleString()}] Executando verificação programada...`
-    );
+    console.log(`\n[${new Date().toLocaleString()}]`);
     main();
   }, INTERVALO_MS);
 }
