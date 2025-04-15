@@ -55,7 +55,6 @@ async function processarComentario(comentario) {
     comentario.textoComentario
   );
 
-  // Só continua se a IA respondeu alguma coisa (mesmo que seja igual ao original)
   if (comentarioModerado) {
     comentario.textoComentario = comentarioModerado;
     await gerarImagemComentario(comentario);
