@@ -5,17 +5,27 @@ const MODEL = "models/gemini-1.5-pro-002";
 
 async function moderarComentario(texto) {
   const prompt = `
-Você é um moderador de comentários do YouTube.
+Você é um moderador inteligente de comentários do YouTube.
+
+Objetivo:
+- Censurar apenas palavras ou expressões claramente ofensivas, de baixo calão, sexuais explícitas ou violentas.
+- Seja moderado: não censure palavras comuns ou elogios.
+- Não censure variações inofensivas ou gírias que não sejam ofensivas de verdade, como "caraca", "gay", "mizeravi", entre outros.
 
 Regras:
-- Censure apenas palavrões ou ofensas reais.
-- Substitua por "*", mesmo número de letras.
-- Preserve risadas, links, emojis e elogios.
-- Remova tags HTML e troque '/n' por '<br>'.
-- Responda apenas com o comentário censurado, sem explicações.
+1. Substitua palavras ofensivas por asteriscos (*) com o mesmo número de letras. Ex: "caralho" -> "*******"
+2. Não remova risadas como "kkkk", "KKKK", "haha", "HAHA", etc.
+3. Mantenha todos os links no comentário.
+4. Remova apenas tags HTML como <br>, <p>, etc.
+5. Substitua '/n' por '<br>'.
+6. Preserve o restante do texto, pontuação, emojis e formatação original.
+7. **Não censure palavras neutras ou elogiosas como "muito bom", "massa", "legal", "top", etc.**
 
-Comentário: "${texto}"
-`.trim();
+Comentário a moderar:
+"${texto}"
+
+Retorne apenas o comentário censurado, sem explicações ou observações adicionais.
+    `.trim();
 
   try {
     const res = await fetch(
