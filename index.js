@@ -49,7 +49,7 @@ async function moderarComentario(comentario) {
 
 async function gerarThumbnail(comentarioModerado) {
   try {
-    await setThumbnail(comentarioModerado);
+    //await setThumbnail(comentarioModerado);
     console.log("🖼️ Thumbnail definida com sucesso.");
   } catch (error) {
     console.error("❌ Erro ao definir a thumbnail:", error.message);
@@ -71,7 +71,7 @@ async function main() {
 }
 
 function iniciarTimerExecucao() {
-  const INTERVALO_MINUTOS = 8;
+  const INTERVALO_MINUTOS = 15;
   const INTERVALO_MS = INTERVALO_MINUTOS * 60 * 1000;
 
   main(); // Executa imediatamente

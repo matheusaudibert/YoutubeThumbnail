@@ -27,6 +27,21 @@ const COMENTARIO = {
 
 async function gerarImagemComentario(comentario) {
   try {
+    if (!comentario) {
+      throw new Error("Comentário não fornecido");
+    }
+
+    if (!comentario.textoComentario) {
+      throw new Error("Texto do comentário não fornecido");
+    }
+
+    if (!comentario.imagemPerfilAutor) {
+      throw new Error("Imagem do perfil do autor não fornecida");
+    }
+
+    if (!comentario.nomeAutor) {
+      throw new Error("Nome do autor não fornecido");
+    }
     const canvas = createCanvas(TELA.largura, TELA.altura);
     const ctx = canvas.getContext("2d");
 
@@ -118,10 +133,7 @@ async function gerarImagemComentario(comentario) {
     const alturaComentario =
       linhas.length * COMENTARIO.tamanhoFonte * COMENTARIO.espacamentoLinhas;
 
-    const alturaRetangulo = Math.max(
-      alturaComentario + 200, // margem extra
-      400
-    );
+    const alturaRetangulo = Math.max(alturaComentario + 200, 400);
     const larguraRetangulo = 1160;
 
     // Centralizar o retângulo
@@ -146,7 +158,7 @@ async function gerarImagemComentario(comentario) {
 
     // Carregar imagem do autor
     const imagemAutor = await loadImage(comentario.imagemPerfilAutor);
-    const fotoX = retanguloX + 15 + FOTO_AUTOR.raio;
+    const fotoX = retanguloX + 10 + FOTO_AUTOR.raio;
     const fotoY = retanguloY + 60 + FOTO_AUTOR.raio;
 
     ctx.save();

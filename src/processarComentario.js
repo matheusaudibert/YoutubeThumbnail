@@ -1,7 +1,7 @@
 const { gerarImagemComentario } = require("./gerarThumb");
 
 const API_KEY = process.env.GEMINI_API_KEY;
-const MODEL = "models/gemini-1.5-pro-002";
+const MODEL = "models/gemini-1.5-flash";
 
 async function moderarComentario(texto) {
   const prompt = `
@@ -40,7 +40,9 @@ Retorne apenas o comentário censurado, sem explicações ou observações adici
     );
 
     const json = await res.json();
+    console.log(json);
     const censurado = json.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+    console.log("🔍 Comentário censurado:", censurado);
     return censurado;
   } catch (err) {
     console.error("❌ Erro na moderação:", err.message);
@@ -49,10 +51,17 @@ Retorne apenas o comentário censurado, sem explicações ou observações adici
 }
 
 async function processarComentario(comentario) {
-  comentario.textoComentario = await moderarComentario(
+  const comentarioModerado = await moderarComentario(
     comentario.textoComentario
   );
-  await gerarImagemComentario(comentario);
+
+  // Só continua se a IA respondeu alguma coisa (mesmo que seja igual ao original)
+  if (comentarioModerado) {
+    comentario.textoComentario = comentarioModerado;
+    await gerarImagemComentario(comentario);
+  } else {
+    console.warn("⚠️ IA não respondeu. Pulando gerarImagemComentario.");
+  }
 
   return comentario;
 }
