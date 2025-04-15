@@ -8,7 +8,6 @@ const { setThumbnail } = require("./src/setarThumb");
 
 const PORT = 3000;
 
-// Servidor web básico só pra manter o serviço vivo na Render
 app.get("/", (req, res) => {
   res.send("🤖 Bot rodando com sucesso!");
 });
@@ -16,8 +15,6 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🌐 Servidor web ouvindo na porta ${PORT}`);
 });
-
-// ----------- Lógica do Bot -----------
 
 async function pegarComentario() {
   try {
