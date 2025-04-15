@@ -1,11 +1,27 @@
 require("dotenv").config();
+const express = require("express");
+const app = express();
+
 const { obterUltimoComentario } = require("./src/obterComentario");
 const { processarComentario } = require("./src/processarComentario");
 const { setThumbnail } = require("./src/setarThumb");
 
+const PORT = 3000;
+
+// Servidor web básico só pra manter o serviço vivo na Render
+app.get("/", (req, res) => {
+  res.send("🤖 Bot rodando com sucesso!");
+});
+
+app.listen(PORT, () => {
+  console.log(`🌐 Servidor web ouvindo na porta ${PORT}`);
+});
+
+// ----------- Lógica do Bot -----------
+
 async function pegarComentario() {
   try {
-    console.log("Buscando o último comentário...");
+    console.log("🔍 Buscando o último comentário...");
     const comentario = await obterUltimoComentario();
     if (comentario) {
       console.log("✅ Comentário encontrado:", comentario.textoComentario);
@@ -15,7 +31,7 @@ async function pegarComentario() {
       return null;
     }
   } catch (error) {
-    console.error("Erro ao pegar o comentário:", error.message);
+    console.error("❌ Erro ao pegar o comentário:", error.message);
     throw error;
   }
 }
@@ -24,7 +40,7 @@ async function moderarComentario(comentario) {
   try {
     const comentarioProcessado = await processarComentario(comentario);
     console.log(
-      "✅ Comentário censurado com sucesso:",
+      "🛡️ Comentário censurado:",
       comentarioProcessado.textoComentario
     );
     return comentarioProcessado;
@@ -37,7 +53,7 @@ async function moderarComentario(comentario) {
 async function gerarThumbnail(comentarioModerado) {
   try {
     await setThumbnail(comentarioModerado);
-    console.log("✅ Thumbnail definida com sucesso.");
+    console.log("🖼️ Thumbnail definida com sucesso.");
   } catch (error) {
     console.error("❌ Erro ao definir a thumbnail:", error.message);
     throw error;
@@ -61,16 +77,13 @@ function iniciarTimerExecucao() {
   const INTERVALO_MINUTOS = 8;
   const INTERVALO_MS = INTERVALO_MINUTOS * 60 * 1000;
 
-  main();
+  main(); // Executa imediatamente
 
   setInterval(() => {
-    console.log(`\n[${new Date().toLocaleString()}]`);
+    console.log(`\n[${new Date().toLocaleString()}] Executando novamente...`);
     main();
   }, INTERVALO_MS);
 }
 
-if (require.main === module) {
-  iniciarTimerExecucao();
-}
-
-module.exports = { main, iniciarTimerExecucao };
+// Inicia tudo
+iniciarTimerExecucao();
