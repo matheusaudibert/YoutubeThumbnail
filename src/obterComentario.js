@@ -24,7 +24,6 @@ function decodificarEntidadesHTML(texto) {
 }
 
 function removerTagsHTML(texto) {
-  // Remove todas as tags HTML exceto <br>
   return texto.replace(/<(?!br\s*\/?>)[^>]+>/g, "");
 }
 

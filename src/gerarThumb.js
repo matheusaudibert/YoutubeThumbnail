@@ -1,7 +1,7 @@
 const { createCanvas, loadImage } = require("canvas");
 const fs = require("fs");
 
-// Configurações do Canvas (tela)
+//thumbnail
 const TELA = {
   largura: 1280,
   altura: 720,
@@ -12,16 +12,14 @@ const FOTO_AUTOR = {
   tamanho: 280,
 };
 
-// Nome do autor
 const NOME_AUTOR = {
   tamanhoFonte: 60,
 };
 
-// Comentário
 const COMENTARIO = {
   tamanhoFonte: 58,
   larguraMaxima: 780,
-  espacamentoLinhas: 1.2,
+  espacamentoLinhas: 1.2, //1.7, 1.5 sla
   maximoLinhas: 7,
 };
 
@@ -64,14 +62,12 @@ async function gerarImagemComentario(comentario) {
         for (let i = 0; i < palavras.length; i++) {
           let palavra = palavras[i];
 
-          // Se a palavra for maior que a largura máxima, vamos quebrar ela
           while (
             ctx.measureText(palavra).width > larguraMaxima &&
             palavra.length > 1
           ) {
             let corte = palavra.length;
 
-            // Tenta encontrar o maior corte que ainda cabe na largura
             while (
               ctx.measureText(palavra.slice(0, corte) + "-").width >
                 larguraMaxima &&
@@ -80,15 +76,12 @@ async function gerarImagemComentario(comentario) {
               corte--;
             }
 
-            // Adiciona a parte que cabe com hífen
             const parte1 = palavra.slice(0, corte) + "-";
             linhas.push((linhaAtual + parte1).trim());
 
-            // Atualiza a palavra com o restante
             palavra = palavra.slice(corte);
             linhaAtual = "";
 
-            // Se já atingiu o máximo de linhas, encerra com "..."
             if (linhas.length >= COMENTARIO.maximoLinhas - 1) {
               linhas.push("...");
               return linhas;
@@ -136,15 +129,12 @@ async function gerarImagemComentario(comentario) {
     const alturaRetangulo = Math.max(alturaComentario + 200, 400);
     const larguraRetangulo = 1160;
 
-    // Centralizar o retângulo
     const retanguloX = (TELA.largura - larguraRetangulo) / 2;
     const retanguloY = (TELA.altura - alturaRetangulo) / 2;
 
-    // Carregar fundo
     const fundo = await loadImage("src/background.jpg");
     ctx.drawImage(fundo, 0, 0, TELA.largura, TELA.altura);
 
-    // Retângulo central
     ctx.fillStyle = "rgba(25, 25, 25, 255)";
     ctx.beginPath();
     ctx.roundRect(
@@ -156,9 +146,8 @@ async function gerarImagemComentario(comentario) {
     );
     ctx.fill();
 
-    // Carregar imagem do autor
     const imagemAutor = await loadImage(comentario.imagemPerfilAutor);
-    const fotoX = retanguloX + 10 + FOTO_AUTOR.raio;
+    const fotoX = retanguloX + 30 + FOTO_AUTOR.raio; // margem esquerda
     const fotoY = retanguloY + 60 + FOTO_AUTOR.raio;
 
     ctx.save();

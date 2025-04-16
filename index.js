@@ -9,7 +9,7 @@ const { setThumbnail } = require("./src/setarThumb");
 const PORT = 3000;
 
 app.get("/", (req, res) => {
-  res.send("🤖 Bot rodando com sucesso!");
+  res.send("server on");
 });
 
 app.listen(PORT, () => {
@@ -49,7 +49,7 @@ async function moderarComentario(comentario) {
 
 async function gerarThumbnail(comentarioModerado) {
   try {
-    //await setThumbnail(comentarioModerado);
+    await setThumbnail(comentarioModerado);
     console.log("🖼️ Thumbnail definida com sucesso.");
   } catch (error) {
     console.error("❌ Erro ao definir a thumbnail:", error.message);
@@ -71,16 +71,14 @@ async function main() {
 }
 
 function iniciarTimerExecucao() {
-  const INTERVALO_MINUTOS = 15;
+  const INTERVALO_MINUTOS = 18; // 14 deu erro
   const INTERVALO_MS = INTERVALO_MINUTOS * 60 * 1000;
 
-  main(); // Executa imediatamente
+  main();
 
   setInterval(() => {
     console.log(`\n[${new Date().toLocaleString()}] Executando novamente...`);
     main();
   }, INTERVALO_MS);
 }
-
-// Inicia tudo
 iniciarTimerExecucao();

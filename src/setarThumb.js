@@ -19,10 +19,8 @@ oauth2Client.setCredentials({
   refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
 });
 
-// Verificar e renovar o token de acesso quando necessário
 async function verificarEAtualizarToken() {
   try {
-    // Verificar se o token está prestes a expirar ou já expirou
     const tokenInfo = oauth2Client.credentials;
 
     if (!tokenInfo.access_token || tokenInfo.expiry_date <= Date.now()) {
@@ -40,7 +38,7 @@ async function setThumbnail(comentarioModerado) {
     await verificarEAtualizarToken();
 
     if (!fs.existsSync(CAMINHO_THUMBNAIL)) {
-      throw new Error(`Thumbnail não encontrada em: ${CAMINHO_THUMBNAIL}`);
+      throw new Error(`Thumbnail não encontrada.`);
     }
 
     const youtube = google.youtube({

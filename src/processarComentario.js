@@ -59,7 +59,7 @@ async function processarComentario(comentario) {
     comentario.textoComentario = comentarioModerado;
     await gerarImagemComentario(comentario);
   } else {
-    console.warn("⚠️ IA não respondeu. Pulando gerarImagemComentario.");
+    console.warn("GEMINI CABACOU");
   }
 
   return comentario;
