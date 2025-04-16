@@ -18,6 +18,6 @@ The system monitors comments on your video and, when configured, selects the mos
 ## 🎬 Demo
 
 Check out the demonstration video where I explain and apply this technique:
-[How to transform comments into YouTube thumbnails](https://www.youtube.com/watch?v=RcBNKG2X6jU)
+[My video!](https://www.youtube.com/watch?v=RcBNKG2X6jU)
 
 This code sucks! Enjoy it!
