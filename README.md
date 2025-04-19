@@ -4,7 +4,7 @@ YoutubeThumbnail is a project that transforms the latest comment on a YouTube vi
 
 ## 🎴 Last Thumb
 
-![Latest Thumbnail](./thumbnail.jpg)
+![Latest Thumbnail](./thumbnail.png)
 
 
 
