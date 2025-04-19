@@ -71,7 +71,7 @@ async function main() {
 }
 
 function iniciarTimerExecucao() {
-  const INTERVALO_MINUTOS = 18; // 14 deu erro
+  const INTERVALO_MINUTOS = 15; // 14 deu erro yt fdp
   const INTERVALO_MS = INTERVALO_MINUTOS * 60 * 1000;
 
   main();
