@@ -14,7 +14,7 @@ async function atualizarReadme() {
     const timestamp = new Date().getTime();
     const imageTag = `![Latest Thumbnail](./thumbnail.png?t=${timestamp})`;
 
-    const secaoPattern = /## 🎴 Last Thumb\s*\n\s*([\s\S]*?)(?=\s*##|$)/;
+    const secaoPattern = /## 🎴 Last Thumbnail\s*\n\s*([\s\S]*?)(?=\s*##|$)/;
 
     if (secaoPattern.test(readmeContent)) {
       readmeContent = readmeContent.replace(
@@ -24,7 +24,7 @@ async function atualizarReadme() {
     } else {
       readmeContent = readmeContent.replace(
         /# 🎬 Youtube Thumbnail\s*\n/,
-        `# 🎬 Youtube Thumbnail\n\n## 🎴 Last Thumb\n\n${imageTag}\n\n`
+        `# 🎬 Youtube Thumbnail\n\n## 🎴 Last Thumbnail\n\n${imageTag}\n\n`
       );
     }
 
