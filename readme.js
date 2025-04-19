@@ -19,7 +19,7 @@ async function atualizarReadme() {
     if (secaoPattern.test(readmeContent)) {
       readmeContent = readmeContent.replace(
         secaoPattern,
-        `## 🎴 Last Thumb\n\n${imageTag}\n\n`
+        `## 🎴 Last Thumbnail\n\n${imageTag}\n\n`
       );
     } else {
       readmeContent = readmeContent.replace(
