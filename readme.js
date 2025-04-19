@@ -12,7 +12,7 @@ async function atualizarReadme() {
     let readmeContent = await fs.readFile(readmePath, "utf8");
 
     const timestamp = new Date().getTime();
-    const imageTag = `![Latest Thumbnail](./thumbnail.png?t=${timestamp})`;
+    const imageTag = `![Latest Thumbnail](./thumbnail.png)`;
 
     const secaoPattern = /## 🎴 Last Thumbnail\s*\n\s*([\s\S]*?)(?=\s*##|$)/;
 
