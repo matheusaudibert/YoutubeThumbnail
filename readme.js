@@ -5,18 +5,21 @@ const util = require("util");
 const execPromise = util.promisify(exec);
 
 const readmePath = path.join(__dirname, "README.md");
+const thumbnailPath = path.join(__dirname, "thumbnail.png");
+
 async function atualizarReadme() {
   try {
     let readmeContent = await fs.readFile(readmePath, "utf8");
 
-    const imageTag = `![Latest Thumbnail](./thumbnail.png)`;
+    const timestamp = new Date().getTime();
+    const imageTag = `![Latest Thumbnail](./thumbnail.png?t=${timestamp})`;
 
     const secaoPattern = /## 🎴 Last Thumb\s*\n\s*([\s\S]*?)(?=\s*##|$)/;
 
     if (secaoPattern.test(readmeContent)) {
       readmeContent = readmeContent.replace(
         secaoPattern,
-        `## 🎴 Last Thumb\n\n${imageTag}`
+        `## 🎴 Last Thumb\n\n${imageTag}\n\n`
       );
     } else {
       readmeContent = readmeContent.replace(
@@ -35,13 +38,18 @@ async function atualizarReadme() {
   }
 }
 
-/**
- * Executa os comandos git para fazer commit e push das alterações
- */
 async function commitParaGithub() {
   try {
     const dataHora = new Date().toISOString();
-    await execPromise("git add README.md");
+
+    await execPromise("git add README.md thumbnail.png");
+
+    try {
+      await execPromise("git add readme.js");
+    } catch (e) {
+      console.log("Nota: readme.js não foi alterado ou não existe");
+    }
+
     await execPromise(
       `git commit -m "Atualização automática da thumbnail - ${dataHora}"`
     );
@@ -49,6 +57,14 @@ async function commitParaGithub() {
     console.log("Alterações enviadas para o GitHub com sucesso.");
   } catch (error) {
     console.error("Erro ao fazer commit para o GitHub:", error);
+
+    try {
+      const { stdout } = await execPromise("git status");
+      console.log("Status atual do Git:", stdout);
+    } catch (statusError) {
+      console.error("Erro ao verificar status do Git:", statusError);
+    }
+
     throw error;
   }
 }
