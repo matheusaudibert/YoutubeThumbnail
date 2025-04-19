@@ -1,5 +1,9 @@
 # 🎬 Youtube Thumbnail
 
+## 🎴 Last Thumb
+
+![Latest Thumbnail](./thumbnail.png?t=1745089275611)
+
 YoutubeThumbnail is a project that transforms the latest comment on a YouTube video into its thumbnail. A creative and interactive way to engage your viewers!
 
 ## 🎬 Demo
