@@ -1,10 +1,15 @@
-# YoutubeThumbnail
+# 🎬 Youtube Thumbnail
 
 YoutubeThumbnail is a project that transforms the latest comment on a YouTube video into its thumbnail. A creative and interactive way to engage your viewers!
+
+## 🎴 Last Thumb
+
+![Latest Thumbnail](./thumbnail.jpg?t=1745087832816)
 
 ## 🚀 Features
 
 - Captures the latest comment from a YouTube video
+- Censures the comment using AI
 - Automatically converts this comment into a thumbnail image using javascript and canvas
 - Updates the video thumbnail with the selected comment
 - Creates an interactive experience where viewers can influence the appearance of the video
