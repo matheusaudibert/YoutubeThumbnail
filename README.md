@@ -8,7 +8,9 @@ Access the video here:
 
 ## 🎴 Last Thumbnail
 
-![Latest Thumbnail](./thumbnail.png?t=1745088419838)
+![Latest Thumbnail](./thumbnail.png?t=1745089366377)
+
+
 
 ## 🚀 Features
 
